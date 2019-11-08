@@ -1,0 +1,31 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+
+int strange_multiply(int a, int b)
+{
+	int s = 0;
+    for (int i = 0; i < b; i++)
+    	s += a;
+    return s;	
+}
+
+int main()
+{
+    system("chcp 1251");
+    system("cls");
+
+    int a, b, m;
+
+	cout << "آâهنèٍه نâà ÷èٌëà: ";
+	cin >> a >> b;
+
+    m = strange_multiply(a, b);
+
+    cout << "a * b = " << m << endl;    
+
+    cout << endl << endl;
+    system("pause");
+    return 0;
+}
