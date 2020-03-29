@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int hamming(string a, string b){
+  int set;
+  set = 0;
+  for(int i=0;i<a.length();++i){
+    if(a[i] != b[i]){
+      set++;
+    }
+  }
+  return set;
+}
+int main()
+{
+  string x, y;
+  cin»x»y;
+  
+  cout«hamming(x, y);
+  
+  return 0;
+}
