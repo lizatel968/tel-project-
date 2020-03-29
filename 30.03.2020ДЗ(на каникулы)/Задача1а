@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-int hamming(string a, string b){
+int hamming(string x, string y){
   int set;
   set = 0;
   for(int i=0;i<a.length();++i){
@@ -15,9 +15,9 @@ int hamming(string a, string b){
 int main()
 {
   string x, y;
-  cin»x»y;
+  cin>>x>>y;
   
-  cout«hamming(x, y);
+  cout<<hamming(x, y);
   
   return 0;
 }
