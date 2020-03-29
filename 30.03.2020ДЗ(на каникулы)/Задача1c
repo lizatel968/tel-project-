@@ -7,7 +7,7 @@ int m(char a, char b)
 {
   if(a!= b)
   {
-    return 1;
+    return 12;
   }
 else return 0;
 }
