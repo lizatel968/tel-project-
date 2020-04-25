@@ -1,0 +1,106 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+#include <map>
+using namespace std;
+struct Node
+{
+char a;
+int b;
+Node* left;
+Node* right;
+};
+Node* newnode(char a, int b, Node* left, Node *right)
+{
+Node* node = new Node();
+node -> a = a;
+node -> left = left;
+node -> right = right;
+node -> b = b;
+return node;
+}
+void code(Node* root, string str,
+map<char,string> &huffman)
+{
+if (root == nullptr)
+return;
+if (!root -> left && !root -> right)
+{
+huffman[root -> a] = str;
+}
+code(root -> left, str + "0", huffman);
+code(root -> right, str + "1", huffman);
+}
+void decoder(Node* root, int &index, string str)
+{
+if (root == nullptr)
+{
+return;
+}
+if (!root -> left && !root -> right)
+{
+cout << root -> a;
+return;
+}
+index++;
+if (str[index] =='0')
+{
+decoder(root -> left, index, str);
+}
+else
+{
+decoder(root -> right, index, str);
+}
+}
+struct least
+{
+bool operator()(Node* left, Node* right)
+{
+return left -> b > right -> b;
+}
+};
+void Huffmancode(string text)
+{
+map<char,int>b;
+for (char a: text) {
+b[a]++;
+}
+priority_queue<Node*, vector<Node*>, least > priority_queue;
+for (auto pair: b)
+{
+priority_queue.push(newnode(pair.first, pair.second, nullptr, nullptr));
+}
+while(priority_queue.size() != 1)
+{
+Node *left = priority_queue.top(); priority_queue.pop();
+Node *right = priority_queue.top(); priority_queue.pop();
+int sum = left -> b + right -> b;
+priority_queue.push(newnode('\0', sum, left, right));
+}
+Node* root = priority_queue.top();
+map<char, string> huffman;
+code(root, "", huffman);
+cout << "Huffman Codes are :\n" << '\n';
+for (auto pair: huffman){
+cout << pair.first << " " << pair.second << '\n';
+}
+cout << "\nNormal string was :\n" << text << '\n';
+string str = " ";
+for (char a: text){
+str += huffman[a];
+}
+cout << "\nString is:\n" << str << '\n';
+int index = -1;
+cout << "\nDecoded string is: \n";
+while (index < (int)str.size() - 2){
+decoder(root, index, str);
+}
+}
+int main()
+{
+string c;
+cin >> c;
+Huffmancode(c);
+return 0;
+}
