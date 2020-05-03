@@ -52,7 +52,7 @@ void keys()
  }
  }
  l = 2;
- while((l * 1LL * t % phi) != 1)
+ while((l * 1LL * t % f) != 1)
  {
  ++l;
  }
