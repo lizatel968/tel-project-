@@ -1,0 +1,89 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cmath>
+using namespace std;
+int m, n;
+int t, l;
+long long r, f;
+vector<int>prime_numbers = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,
+ 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+int prime(int b)
+{
+ for (int i = 2; i < sqrt(b); i++)
+ {
+ if (b % i == 0)
+ {
+ return 0;
+ }
+ }
+}
+long long binpow(long long b, int power, int mod)
+{
+ if (power == 0)
+ {
+ return 1;
+ }
+ if (power % 2 == 1)
+ {
+ return binpow(e, power - 1, mod) * 1LL * e % mod;
+ }
+ else
+ {
+ long long e = binpow (b, power / 2, mod) % mod;
+ return e * 1LL * e % mod;
+ }
+}
+void keys()
+{
+{
+ m = 10000 + rand() % 90000;
+ n = 10000 + rand() % 90000;
+ }
+ while (!prime(m) && !prime(n));
+ r = m * n;
+ f = (m - 1) * (n - 1);
+ for (int i = 1; i < prime_numbers.size(); i++)
+ {
+ if (f % prime_numbers[i] != 0)
+ {
+ t = prime_numbers[i];
+ break;
+ }
+ }
+ l = 2;
+ while((l * 1LL * t % phi) != 1)
+ {
+ ++l;
+ }
+}
+vector<long long> cyphered;
+void encrypt(int b)
+{
+ cyphered.push_back(binpow(b, t, r));
+}
+string message;
+void decoder()
+{
+ for (int i = 0; i < cyphered.size(); ++i)
+ {
+ message.push_back((char)binpow(cyphered[i], l, r));
+ }
+}
+int main() {
+ string s;
+ cin >> s;
+ keys();
+ for(int i = 0; i < s.length(); ++i)
+ {
+ encrypt((int)s[i]);
+ }
+ for(int i = 0; i < s.length(); ++i)
+ {
+ cout << cyphered[i] << " ";
+ }
+ cout << endl;
+ decoder();
+ cout << message;
+ return 0;
+}
